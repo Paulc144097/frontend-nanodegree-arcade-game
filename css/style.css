@@ -1,5 +1,29 @@
 body {
 	text-align: center;
-	background-color: RGBA(80, 100, 150, 1);
+	background-image: url("http://i57.tinypic.com/2le6l5l.jpg");
+	margin-top: 40px;
+
 }
 
+h1 { 
+	font-family: 'Sigmar One', cursive;
+	margin-bottom: -25px;
+	font-size: 35px;
+}
+
+
+
+hr { display: block; height: 2px;
+    border: 0; border-top: 4px solid #000;
+    margin: 1em 0; padding: 0; 
+}
+
+.foot-title{
+	font-family: 'Sigmar One', cursive;
+	font-size: 22px;
+}
+
+li {
+	font-family: 'Sigmar One', cursive;
+	font-size: 14px;
+}

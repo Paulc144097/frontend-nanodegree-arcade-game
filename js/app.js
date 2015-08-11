@@ -1,8 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(startX, startY, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    this.x = startX;
+    this.y = startY;
+    this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -14,6 +16,20 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x = this.x +this.speed *dt;
+    if (this.x > 505){
+        this.x = -80;
+        //random speed
+    }
+    var bugXLeftRange = this.x - 50;
+    var bugXRightRange = this.x + 50;
+    var bugYTopRange = this.y - 50;
+    var bugYBottomRange = this.y + 50;
+
+    if (player.x > bugXLeftRange && player.x < bugXRightRange && player.y > bugYTopRange && player.y < bugYBottomRange) {
+        player.resetPlayerPosition();
+    }
+
 }
 
 // Draw the enemy on the screen, required method for game
@@ -21,15 +37,54 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+Enemy.prototype.randomSpeed = function() {
+    var speedMultiply = Math.floor(Math.random() * 5 + 1);
+    this.speed = 75 * speedMultiply;
+}
+
+
+
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var pStartX = 200;
+var pStartY = 400;
 
+var Player = function(){
+    this.x = pStartX;
+    this.x = pStartY;
 
+    this.sprite = 'images/char-cat-girl.png';
+}
+Player.prototype.update = function() {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+}
+
+// Draw the enemy on the screen, required method for game
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+//SPEED
+
+Enemy.prototype.rSpeed = function(){
+    var speedMultiply = Math.floor(Math.random()*4+3);
+    this.speed = speedMultiply;
+}
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+var allEnemies = [];
+/*
+for (var i = 0; i<3; i++){
+    var tempSpeed = Math.floor(Math.random() * 4+2) * 70;
+    allEnemies.oush(new Enemy(-30, 40 + 90 * i, tempSpeed))
+}*/
+
+var player = new Player
 
 
 // This listens for key presses and sends the keys to your
@@ -41,6 +96,8 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+//helper function?
+

@@ -3,7 +3,3 @@ body {
 	background-color: RGBA(80, 100, 150, 1);
 }
 
-canvas {
-	border-style: solid;
-	border-width: 1px;
-}

@@ -69,20 +69,20 @@ Player.prototype.render = function() {
 }
 //SPEED
 
-Enemy.prototype.rSpeed = function(){
-    var speedMultiply = Math.floor(Math.random()*4+3);
-    this.speed = speedMultiply;
-}
+
+
+
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 var allEnemies = [];
-/*
-for (var i = 0; i<3; i++){
-    var tempSpeed = Math.floor(Math.random() * 4+2) * 70;
-    allEnemies.oush(new Enemy(-30, 40 + 90 * i, tempSpeed))
-}*/
+for (var i = 0; i < 3; i++) {
+    var tSpeed = Math.floor(Math.random() * 5 + 1) * 75;
+    allEnemies.push(new Enemy(-95, 60 + 85 * i, tSpeed));
+}
 
 var player = new Player
 

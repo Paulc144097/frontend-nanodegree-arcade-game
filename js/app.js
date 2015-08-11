@@ -48,27 +48,95 @@ Enemy.prototype.randomSpeed = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var pStartX = 200;
-var pStartY = 400;
+var pStartX = 200,
+    pStartY = 400;
 
-var Player = function(){
+var Player = function() {
+    // Play initial place coordinate
     this.x = pStartX;
-    this.x = pStartY;
-
-    this.sprite = 'images/char-cat-girl.png';
+    this.y = pStartY;
+    this.wallChecker = {
+        leftWall: false,
+        rightWall: false,
+        bottomWall: true
+    };
+    this.sprite = 'images/char-boy.png';
 }
+
+// Player class instance methods ✓ (EMPTY)
 Player.prototype.update = function() {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+
 }
 
-// Draw the enemy on the screen, required method for game
+// Draw the player on the screen, required method for game ✓
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-//SPEED
 
+Player.prototype.resetPlayerPosition = function() {
+    this.x = pStartX;
+    this.y = pStartY;
+    this.resetCheckPosition();
+}
+
+Player.prototype.handleInput = function(keyPressed){
+    // Key press listener, 'left', 'up', 'right', 'down' ✓
+    var stepHorizontalLength = 100;
+    var stepVerticalLength = 90;
+    this.checkPosition();
+
+    if (keyPressed === 'left') {
+        if (this.wallChecker.leftWall) {
+            return null;
+        }
+        this.x = this.x - stepHorizontalLength;
+    } else if (keyPressed === 'right') {
+        if (this.wallChecker.rightWall) {
+            return null;
+        }
+        this.x = this.x + stepHorizontalLength;
+    } else if (keyPressed === 'up') {
+        if (this.y === 40) {
+            this.resetPlayerPosition();
+            return null;
+        }
+        this.y = this.y - stepVerticalLength;
+    } else if (keyPressed === 'down') {
+        if (this.wallChecker.bottomWall) {
+            return null;
+        }
+        this.y = this.y + stepVerticalLength;
+    } else {
+        console.log('unknown key');
+        return null;
+    }
+}
+
+
+Player.prototype.checkPosition = function() {
+    if (this.x === 0) {
+        this.setHorizontalWallCheckerState(true, false);
+    } else if (this.x === 400) {
+        this.setHorizontalWallCheckerState(false, true);
+    } else {
+        this.setHorizontalWallCheckerState(false, false);
+    }
+    if (this.y === 400) {
+        this.wallChecker.bottomWall = true;
+    } else {
+        this.wallChecker.bottomWall = false;
+    }
+}
+
+Player.prototype.resetCheckPosition = function() {
+    this.setHorizontalWallCheckerState(false, false);
+    this.wallChecker.bottomWall = true;
+}
+
+Player.prototype.setHorizontalWallCheckerState = function(leftWallState, rightWallState) {
+    this.wallChecker.leftWall = leftWallState;
+    this.wallChecker.rightWall = rightWallState;
+}
 
 
 
@@ -79,9 +147,9 @@ Player.prototype.render = function() {
 // Place the player object in a variable called player
 
 var allEnemies = [];
-for (var i = 0; i < 3; i++) {
-    var tSpeed = Math.floor(Math.random() * 5 + 1) * 75;
-    allEnemies.push(new Enemy(-95, 60 + 85 * i, tSpeed));
+for (var i = 0; i < 4; i++) {
+    var tSpeed = Math.floor(Math.random() * 4 + 1) * 60;
+    allEnemies.push(new Enemy(-100, 55 + 85 * i, tSpeed));
 }
 
 var player = new Player
@@ -100,4 +168,6 @@ document.addEventListener('keyup', function(e) {
 });
 
 //helper function?
-
+var LogPlayerPosition = function() {
+    console.log('>>> PLAYER - X: ' + player.x + ' Y: ' + player.y + ' ' + player.wallChecker.leftWall + " " + player.wallChecker.rightWall);
+}

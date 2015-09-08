@@ -8,7 +8,7 @@ var Enemy = function(startX, startY, speed) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -29,18 +29,17 @@ Enemy.prototype.update = function(dt) {
     if (player.x > bugXLeftRange && player.x < bugXRightRange && player.y > bugYTopRange && player.y < bugYBottomRange) {
         player.resetPlayerPosition();
     }
-
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Enemy.prototype.randomSpeed = function() {
     var speedMultiply = Math.floor(Math.random() * 5 + 1);
     this.speed = 75 * speedMultiply;
-}
+};
 
 
 
@@ -61,23 +60,19 @@ var Player = function() {
         bottomWall: true
     };
     this.sprite = 'images/char-boy.png';
-}
+};
 
-// Player class instance methods ✓ (EMPTY)
-Player.prototype.update = function() {
-
-}
 
 // Draw the player on the screen, required method for game ✓
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.resetPlayerPosition = function() {
     this.x = pStartX;
     this.y = pStartY;
     this.resetCheckPosition();
-}
+};
 
 Player.prototype.handleInput = function(keyPressed){
     // Key press listener, 'left', 'up', 'right', 'down' ✓
@@ -110,7 +105,7 @@ Player.prototype.handleInput = function(keyPressed){
         console.log('unknown key');
         return null;
     }
-}
+};
 
 
 Player.prototype.checkPosition = function() {
@@ -126,19 +121,17 @@ Player.prototype.checkPosition = function() {
     } else {
         this.wallChecker.bottomWall = false;
     }
-}
+};
 
 Player.prototype.resetCheckPosition = function() {
     this.setHorizontalWallCheckerState(false, false);
     this.wallChecker.bottomWall = true;
-}
+};
 
 Player.prototype.setHorizontalWallCheckerState = function(leftWallState, rightWallState) {
     this.wallChecker.leftWall = leftWallState;
     this.wallChecker.rightWall = rightWallState;
-}
-
-
+};
 
 
 
@@ -148,6 +141,7 @@ Player.prototype.setHorizontalWallCheckerState = function(leftWallState, rightWa
 
 var allEnemies = [];
 for (var i = 0; i < 4; i++) {
+
     var tSpeed = Math.floor(Math.random() * 4 + 1) * 60;
     allEnemies.push(new Enemy(-100, 55 + 85 * i, tSpeed));
 }

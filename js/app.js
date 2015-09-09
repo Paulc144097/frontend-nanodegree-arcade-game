@@ -2,8 +2,8 @@
 var Enemy = function(startX, startY, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    x = startX;
-    y = startY;
+    this.x = startX;
+    this.y = startY;
     this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -16,15 +16,15 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    x = x +this.speed *dt;
-    if (x > 505){
-        x = -80;
+    this.x = this.x +this.speed *dt;
+    if (this.x > 505){
+        this.x = -80;
         //random speed
     }
-    var bugXLeftRange = x - 50;
-    var bugXRightRange = x + 50;
-    var bugYTopRange = y - 50;
-    var bugYBottomRange = y + 50;
+    var bugXLeftRange = this.x - 50;
+    var bugXRightRange = this.x + 50;
+    var bugYTopRange = this.y - 50;
+    var bugYBottomRange = this.y + 50;
 
     if (player.x > bugXLeftRange && player.x < bugXRightRange && player.y > bugYTopRange && player.y < bugYBottomRange) {
         player.resetPlayerPosition();
@@ -33,7 +33,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), x, y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Enemy.prototype.randomSpeed = function() {
@@ -52,8 +52,8 @@ var pStartX = 200,
 
 var Player = function() {
     // Play initial place coordinate
-    x = pStartX;
-    y = pStartY;
+    this.x = pStartX;
+    this.y = pStartY;
     this.wallChecker = {
         leftWall: false,
         rightWall: false,
@@ -65,12 +65,12 @@ var Player = function() {
 
 // Draw the player on the screen, required method for game ✓
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), x, y);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.resetPlayerPosition = function() {
-    x = pStartX;
-    y = pStartY;
+    this.x = pStartX;
+    this.y = pStartY;
     this.resetCheckPosition();
 };
 
@@ -84,23 +84,23 @@ Player.prototype.handleInput = function(keyPressed){
         if (this.wallChecker.leftWall) {
             return null;
         }
-        x = x - stepHorizontalLength;
+        this.x = this.x - stepHorizontalLength;
     } else if (keyPressed === 'right') {
         if (this.wallChecker.rightWall) {
             return null;
         }
-        x = x + stepHorizontalLength;
+        this.x = this.x + stepHorizontalLength;
     } else if (keyPressed === 'up') {
-        if (y === 40) {
+        if (this.y === 40) {
             this.resetPlayerPosition();
             return null;
         }
-        y = y - stepVerticalLength;
+        this.y = this.y - stepVerticalLength;
     } else if (keyPressed === 'down') {
         if (this.wallChecker.bottomWall) {
             return null;
         }
-        y = y + stepVerticalLength;
+        this.y = this.y + stepVerticalLength;
     } else {
         console.log('unknown key');
         return null;
@@ -109,14 +109,14 @@ Player.prototype.handleInput = function(keyPressed){
 
 
 Player.prototype.checkPosition = function() {
-    if (x === 0) {
+    if (this.x === 0) {
         this.setHorizontalWallCheckerState(true, false);
-    } else if (x === 400) {
+    } else if (this.x === 400) {
         this.setHorizontalWallCheckerState(false, true);
     } else {
         this.setHorizontalWallCheckerState(false, false);
     }
-    if (y === 400) {
+    if (this.y === 400) {
         this.wallChecker.bottomWall = true;
     } else {
         this.wallChecker.bottomWall = false;
@@ -135,7 +135,7 @@ Player.prototype.setHorizontalWallCheckerState = function(leftWallState, rightWa
 
 // Player class instance methods ✓ (EMPTY)
 Player.prototype.update = function() {
-
+    
 };
 
 // Now instantiate your objects.

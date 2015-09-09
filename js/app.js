@@ -2,8 +2,8 @@
 var Enemy = function(startX, startY, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = startX;
-    this.y = startY;
+    x = startX;
+    y = startY;
     this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -16,15 +16,15 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x +this.speed *dt;
-    if (this.x > 505){
-        this.x = -80;
+    x = x +this.speed *dt;
+    if (x > 505){
+        x = -80;
         //random speed
     }
-    var bugXLeftRange = this.x - 50;
-    var bugXRightRange = this.x + 50;
-    var bugYTopRange = this.y - 50;
-    var bugYBottomRange = this.y + 50;
+    var bugXLeftRange = x - 50;
+    var bugXRightRange = x + 50;
+    var bugYTopRange = y - 50;
+    var bugYBottomRange = y + 50;
 
     if (player.x > bugXLeftRange && player.x < bugXRightRange && player.y > bugYTopRange && player.y < bugYBottomRange) {
         player.resetPlayerPosition();
@@ -33,7 +33,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), x, y);
 };
 
 Enemy.prototype.randomSpeed = function() {
@@ -52,8 +52,8 @@ var pStartX = 200,
 
 var Player = function() {
     // Play initial place coordinate
-    this.x = pStartX;
-    this.y = pStartY;
+    x = pStartX;
+    y = pStartY;
     this.wallChecker = {
         leftWall: false,
         rightWall: false,
@@ -65,12 +65,12 @@ var Player = function() {
 
 // Draw the player on the screen, required method for game ✓
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), x, y);
 };
 
 Player.prototype.resetPlayerPosition = function() {
-    this.x = pStartX;
-    this.y = pStartY;
+    x = pStartX;
+    y = pStartY;
     this.resetCheckPosition();
 };
 
@@ -84,23 +84,23 @@ Player.prototype.handleInput = function(keyPressed){
         if (this.wallChecker.leftWall) {
             return null;
         }
-        this.x = this.x - stepHorizontalLength;
+        x = x - stepHorizontalLength;
     } else if (keyPressed === 'right') {
         if (this.wallChecker.rightWall) {
             return null;
         }
-        this.x = this.x + stepHorizontalLength;
+        x = x + stepHorizontalLength;
     } else if (keyPressed === 'up') {
-        if (this.y === 40) {
+        if (y === 40) {
             this.resetPlayerPosition();
             return null;
         }
-        this.y = this.y - stepVerticalLength;
+        y = y - stepVerticalLength;
     } else if (keyPressed === 'down') {
         if (this.wallChecker.bottomWall) {
             return null;
         }
-        this.y = this.y + stepVerticalLength;
+        y = y + stepVerticalLength;
     } else {
         console.log('unknown key');
         return null;
@@ -109,14 +109,14 @@ Player.prototype.handleInput = function(keyPressed){
 
 
 Player.prototype.checkPosition = function() {
-    if (this.x === 0) {
+    if (x === 0) {
         this.setHorizontalWallCheckerState(true, false);
-    } else if (this.x === 400) {
+    } else if (x === 400) {
         this.setHorizontalWallCheckerState(false, true);
     } else {
         this.setHorizontalWallCheckerState(false, false);
     }
-    if (this.y === 400) {
+    if (y === 400) {
         this.wallChecker.bottomWall = true;
     } else {
         this.wallChecker.bottomWall = false;
@@ -133,7 +133,10 @@ Player.prototype.setHorizontalWallCheckerState = function(leftWallState, rightWa
     this.wallChecker.rightWall = rightWallState;
 };
 
+// Player class instance methods ✓ (EMPTY)
+Player.prototype.update = function() {
 
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies

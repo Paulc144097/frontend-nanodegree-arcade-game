@@ -8,7 +8,7 @@ h1 {
 	font-family: 'Sigmar One', cursive;
 	margin-bottom: -25px;
 	font-size: 35px;
-	color: #385E0F;
+	color: #385e0f;
 }
 
 .margins {
@@ -18,17 +18,17 @@ h1 {
 hr { display: block; height: 2px;
     border: 0; border-top: 4px solid #000;
     margin: 1em 0; padding: 0; 
-	border-color:#EEE9E9;
+	border-color:#eee9e9;
 }
 
 .foot-title{
 	font-family: 'Sigmar One', cursive;
 	font-size: 22px;
-	color: #385E0F;
+	color: #385e0f;
 }
 
 li {
 	font-family: 'Sigmar One', cursive;
 	font-size: 14px;
-	color: #385E0F;
+	color: #385e0f;
 }
